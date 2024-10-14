@@ -8,28 +8,46 @@ target = 3
 #     for num in row:
 #         print(num)
 def binarySearch(matrix,target):
-    left,right,down = 0,len(matrix),0
-    # Check base case
-    if high >= low:
-
-        mid = low + (high - low) // 2
-
-        # If element is present at the middle itself
-        if arr[mid] == x:
-            return mid
-
-        # If element is smaller than mid, then it
-        # can only be present in left subarray
-        elif arr[mid] > x:
-            return binarySearch(arr, low, mid-1, x)
-
-        # Else the element can only be present
-        # in right subarray
+    # what would mid be so that i can traverse both vertically and laterally in a matrix array
+    # can i assume that every column array is the same size?
+    row = len(matrix)
+    # only works if n array size is fixed if not then it has to be O(n) to iterate through the different sizes
+    col = len(matrix[0])
+    # i need to know the total number of elements in the matrix from 0 to len(matrix2D)
+    len1d = row * col - 1
+    # now I can start the binary search to achieve log(m*n) time
+    left,right = 0,len1d
+    while left <= right:
+        mid = (left + right) // 2
+        # i need a sway to split the arrays into row/col
+        # first iteration would be the max len of 2d matrix by the number of columns to get rows
+        currRow = mid // col
+        # columns is just the max length of the 2d matrix mod the size of the column
+        currCol = mid % col
+        # first if the target is in the upper bracket
+        if target > matrix[currRow][currCol]:
+            left = mid + 1
+        # if the target is in the lower bracket
+        elif target < matrix[currRow][currCol]:
+            right = mid - 1
+        # finally if the target is at the perfect place
         else:
-            return binarySearch(arr, mid + 1, high, x)
+            return True
+    
+    return False
 
-    # Element is not present in the array
-    else:
-        return -1
+# test cases given in the assigneemnt
+matrix1 = [[1,3,5,7],[10,11,16,20],[23,30,34,60]]
+target1 = 3 # works all good
+target2 = 23 # checking edges of arrays front/back
+target3 = 1
+target4 = 60 # checking if edge case doesn't go out of bounds
+target5 = 4 #checking if invalid values return -1
+print(binarySearch(matrix1,target1))
+print(binarySearch(matrix1,target2))
+print(binarySearch(matrix1,target3))
+print(binarySearch(matrix1,target4))
+print(binarySearch(matrix1,target5))
+# all test cases returned the correct answer pog
 
 
