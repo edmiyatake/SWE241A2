@@ -1,6 +1,6 @@
 # must be O(log(n)) therefore binary search
 def firstInstance(nums,target):
-    left,right,sol = 0,len(nums) - 1,0
+    left,right,sol = 0,len(nums) - 1,-1
     while left <= right:
         mid = (left + right) // 2
         if target > nums[mid]:
@@ -19,7 +19,7 @@ def firstInstance(nums,target):
     return sol
 
 def lastInstance(nums,target):
-    left,right,sol = 0,len(nums) - 1,0
+    left,right,sol = 0,len(nums) - 1,-1
     while left <= right:
         mid = (left + right) // 2
         if target > nums[mid]:
@@ -37,12 +37,41 @@ def lastInstance(nums,target):
 
     return sol
 
-nums = [1,4,9,10,13,17,17,19,21]
-nums2 = [12,45,98,102,102,102,179,192,210]
-# first couple of bugs were because of the not sorted array => yikes
-target = 102
+def task1(nums,target):
+    return [firstInstance(nums,target),lastInstance(nums,target)]
 
-print(f"This is the first instance: {firstInstance(nums2,target)}")
-print(f"This is the last instance: {lastInstance(nums2,target)}")
+print("Assignment Examples")
+nums = [4,9,10,13,17,17,19,21]
+target = 17
+print(f"nums = {nums}, target = {target} ")
+print(f"Solution is {task1(nums,target)}\n")
+nums1 = [2,4,6,8,10,14,16]
+target1 = 12
+print(f"nums = {nums1}, target = {target1} ")
+print(f"Solution is {task1(nums1,target1)}\n")
+nums2 = []
+target2 = 0
+print(f"nums = {nums2}, target = {target2} ")
+print(f"Solution is {task1(nums2,target2)}\n")
 
+print("Custom Test Cases")
+print("Test both edges of the array")
+print(f"nums = {[42,2,25,65,42]}, target = {42} ")
+print(f"Solution is {task1([42,2,25,65,42],42)}\n")
+
+print("Test one target instance in the array")
+print(f"nums = {[22,2,25,65,76]}, target = {25} ")
+print(f"Solution is {task1([22,2,25,65,76],25)}\n")
+
+print("Test if target is not found")
+print(f"nums = {[22,2,25,65,76]}, target = {72} ")
+print(f"Solution is {task1([22,2,25,65,76],72)}\n")
+
+print("Test two targets in the back of the array")
+print(f"nums = {[22,2,25,65,76,97,97]}, target = {97} ")
+print(f"Solution is {task1([22,2,25,65,76,97,97],97)}\n")
+
+print("Test empty array")
+print(f"nums = {[]}, target = {2} ")
+print(f"Solution is {task1([],2)}\n")
 
